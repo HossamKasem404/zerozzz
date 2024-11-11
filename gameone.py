@@ -147,11 +147,7 @@ class ZeroSquaresGame:
                 #          print()
                 for x in self.next_step():
                       x.print_board()
-                       
-                        
-
-
-                
+                  
 
                 for x in self.next_step():
                          for row in x:
@@ -164,10 +160,6 @@ class ZeroSquaresGame:
                     print()                   
                 continue  
             
-    
-    
-
-
 
     def has_moved_before(self, new_board):
         for previous_board in ZeroSquaresGame.previous_boards:
