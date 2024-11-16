@@ -1,4 +1,6 @@
-import copy
+from DFS_method import DFS
+from BFS_method import BFS
+
 
 
 class ZeroSquaresGame:
@@ -141,18 +143,22 @@ class ZeroSquaresGame:
                 previous_boards.append(self.board)
 
             elif move == 'h':
-                # for x in self.next_step():
-                #          for row in x:
-                #                 print(*row)  
-                #          print()
-                for x in self.next_step():
-                      x.print_board()
-                  
-
                 for x in self.next_step():
                          for row in x:
                                 print(*row)  
                          print()
+                
+                  
+            elif move == 'DFS':
+                    dfs = DFS(self)
+                    if dfs.DFS_algorithm():
+                      break
+
+            elif move == 'BFS':
+                    bfs = BFS(self)
+                    if bfs.BFS_algorithm():
+                      break 
+
             elif move == 'i':   
                 for i in previous_boards:
                     for row in i:
@@ -160,43 +166,30 @@ class ZeroSquaresGame:
                     print()                   
                 continue  
             
-
-    def has_moved_before(self, new_board):
-        for previous_board in ZeroSquaresGame.previous_boards:
-            if previous_board == new_board:
-                return True
-        return False
-
-
     def next_step(self):
-        out_next_step=[]
-        print("Your valid next steps are:")         
-        zzz = []
-        for x in range(self.n):
-            for y in range(self.n): 
-                if self.board[x][y] not in {'X', 'GR', 'GB', 'GY', 'GC', '.'}:
-                    zzz.append([x, y])
+                out_next_step = []
+                zzz = []
 
-        for i in zzz:
-            if self.can_move_up(i[0], i[1]) :
-                
-                out_next_step.append(self.move(-1,0))
-                break
-        for i in zzz:        
-            if self.can_move_down(i[0], i[1]) :
-                
-                out_next_step.append(self.move(1,0))
-                break
-        for i in zzz:        
-            if self.can_move_right(i[0], i[1]):
-                
-                out_next_step.append(self.move(0,1))
-                break
-        for i in zzz:        
-            if self.can_move_left(i[0], i[1]) :
-                
-                out_next_step.append(self.move(0,-1))
-                break
+                for x in range(self.n):
+                    for y in range(self.n):
+                        if self.board[x][y] not in {'X', 'GR', 'GB', 'GY', 'GC', '.'}:
+                            zzz.append([x, y])
 
-        return  out_next_step
+                for i in zzz:
+                    if self.can_move_up(i[0], i[1]):
+                        new_step = self.move(-1, 0)
+                        out_next_step.append(new_step)
 
+                    if self.can_move_down(i[0], i[1]):
+                        new_step = self.move(1, 0)
+                        out_next_step.append(new_step)
+
+                    if self.can_move_right(i[0], i[1]):
+                        new_step = self.move(0, 1)
+                        out_next_step.append(new_step)
+
+                    if self.can_move_left(i[0], i[1]):
+                        new_step = self.move(0, -1)
+                        out_next_step.append(new_step)
+
+                return out_next_step
