@@ -151,7 +151,7 @@ class ZeroSquaresGame:
                   
             elif move == 'DFS':
                     dfs = DFS(self)
-                    if dfs.DFS_algorithm():
+                    if dfs.DFS_recursive(self.board,previous_boards):
                       break
 
             elif move == 'BFS':
