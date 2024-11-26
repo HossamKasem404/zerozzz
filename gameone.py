@@ -2,7 +2,7 @@ import copy
 from DFS_R_method import DFS_R
 from DFS_method import DFS
 from BFS_method import BFS
-# from UCS_method import UCS
+from UCS_method import UCS
 
 
 
@@ -171,10 +171,10 @@ class ZeroSquaresGame:
                     if dfs_r.find_all_successful_paths():
                       break
 
-            # elif move == 'UCS':
-            #         ucs = UCS(self)
-            #         if ucs.ucs_algorithm():
-            #           break 
+            elif move == 'UCS':
+                    ucs = UCS(self)
+                    if ucs.ucs_algorithm():
+                      break 
                          
         
 
