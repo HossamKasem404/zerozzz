@@ -1,5 +1,8 @@
+import copy
+from DFS_R_method import DFS_R
 from DFS_method import DFS
 from BFS_method import BFS
+# from UCS_method import UCS
 
 
 
@@ -37,8 +40,9 @@ class ZeroSquaresGame:
         return self.is_valid_move(x, y, 1, 0)
 
     def move(self, dx, dy):
-        new_board = [row[:] for row in self.board]
-
+        new_board = self.board
+        new_board = copy.deepcopy(self.board)  # عمل نسخة عميقة من اللوحة
+        ZeroSquaresGame.previous_boards.append(copy.deepcopy(self.board))
         for x in range(self.n):
             for y in range(self.n):
                 if self.board[x][y] not in {'X', 'GR', 'GB', 'GY', 'GC', '.'}:
@@ -106,7 +110,7 @@ class ZeroSquaresGame:
     def win(self):
         for row in self.board:
             for cell in row:
-                if cell in {"GY", "GR", "GB", "GR,Y", "GY,R", "GY,B", "GR,B", "GB,Y", "GB,R"}:
+                if cell in {'GY', 'GR', 'GB', 'GC', 'GR,Y', 'GY,R', 'GY,B', 'GY,C', 'GR,C', 'GR,B', 'GB,Y', 'GB,R', 'GB,C'}:
                     return False
         return True
 
@@ -151,13 +155,28 @@ class ZeroSquaresGame:
                   
             elif move == 'DFS':
                     dfs = DFS(self)
-                    if dfs.DFS_recursive(self.board,previous_boards):
+                    if dfs.DFS_algorithm():
                       break
 
             elif move == 'BFS':
                     bfs = BFS(self)
                     if bfs.BFS_algorithm():
                       break 
+
+
+            elif move == 'DFS_R':
+                    dfs_r = DFS_R(self)
+                    if dfs_r.DFS_recursive(self):
+                      break
+                    if dfs_r.find_all_successful_paths():
+                      break
+
+            # elif move == 'UCS':
+            #         ucs = UCS(self)
+            #         if ucs.ucs_algorithm():
+            #           break 
+                         
+        
 
             elif move == 'i':   
                 for i in previous_boards:
@@ -166,6 +185,11 @@ class ZeroSquaresGame:
                     print()                   
                 continue  
             
+            else:
+                print("Invalid move")
+            continue
+
+        
     def next_step(self):
                 out_next_step = []
                 zzz = []
