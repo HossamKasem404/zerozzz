@@ -3,6 +3,7 @@ from DFS_R_method import DFS_R
 from DFS_method import DFS
 from BFS_method import BFS
 from UCS_method import UCS
+from astar import AStar
 
 
 
@@ -175,7 +176,11 @@ class ZeroSquaresGame:
                     ucs = UCS(self)
                     if ucs.ucs_algorithm():
                       break 
-                         
+
+            elif move == 'star':
+                    star = AStar(self)
+                    if star.a_star_algorithm():
+                      break              
         
 
             elif move == 'i':   
@@ -217,3 +222,24 @@ class ZeroSquaresGame:
                         out_next_step.append(new_step)
 
                 return out_next_step
+    
+
+    def remaining_steps_to_win(self):
+        goals = {"GY", "GR", "GB", "GC"}
+        colored_squares = {"Y", "R", "B", "C"}
+        total_distance = 0
+
+        for x in range(self.n):
+            for y in range(self.n):
+                if self.board[x][y] in colored_squares:
+                    closest_goal_distance = float("inf")
+                    for i in range(self.n):
+                        for j in range(self.n):
+                            if self.board[i][j] in goals:
+                                distance = abs(x - i) + abs(y - j)
+                                closest_goal_distance = min(
+                                    closest_goal_distance, distance
+                                )
+                    total_distance += closest_goal_distance
+
+        return total_distance
