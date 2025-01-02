@@ -30,6 +30,8 @@ class UCS:
     
 
             for next_game,weight in self.generate_nextsteps_with_weights(current_board):
+                print(f"visited : {len(self.visited_boards)}")
+
                 
                 if (tuple(map(tuple, next_game.board)) not in self.visited_boards ):
                     
